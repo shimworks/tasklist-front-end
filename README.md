@@ -1,7 +1,7 @@
 # Bem vindo ao Task List ou em português Lista de Tarefas!
 
 Neste repósitório voce encontrará o código do front end deste projeto.
-Para fazer o uso do Task List é só acessar o [Link](https://github.com/shimworks)
+Acesse o repositório do [back end](https://github.com/shimworks/tasklist-front-end)
 
 ## Funções do Task List
 
@@ -12,9 +12,6 @@ Para fazer o uso do Task List é só acessar o [Link](https://github.com/shimwor
   - Atualizar o estado da tarefa para Pendente, Em andamento ou Concluído;
 
 ## Instalando
-#### Dependências
- - mongoDB `npm i mongodb`
-
 #### Rodando na minha Máquina
   Execute o comando `npm i` para instalar as dependências
   Em seguida execute `npm start` para iniciar o site.
