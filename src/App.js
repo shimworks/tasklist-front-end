@@ -1,20 +1,39 @@
 import React, { useState, useEffect } from 'react';
+import api from './api/api';
 
 const initTask = {
-  title: '',
-  details: '',
-  status: '',
+  taskTitle: '',
+  taskDetail: '',
+  status: 'In Progress',
+  created: new Date(),
 };
-
-const taskList = [{ title: 'asdasdasd' }, { title: 'elemento2' }];
 
 function App() {
   const [task, setTask] = useState(initTask);
-  const [stateList, setStateList] = useState(taskList);
+  const [stateList, setStateList] = useState([]);
+
+  async function fetchList() {
+    try {
+      const { data } = await api.get('');
+      setStateList(data);
+    } catch (err) {
+      return err;
+    }
+    return true;
+  }
+
+  async function insertList() {
+    try {
+      await api.post('task', task);
+    } catch (err) {
+      return err;
+    }
+    return true;
+  }
 
   useEffect(() => {
-
-  }, [task]);
+    fetchList();
+  });
 
   function handleChange({ target: { name, value } }) {
     setTask({
@@ -27,20 +46,21 @@ function App() {
       ...stateList,
       task,
     ]);
+    insertList();
   }
 
   return (
     <div className="App">
       <ul>
-        { stateList.map((taskTeste) => <li key={taskTeste.title}>{taskTeste.title}</li>) }
+        { stateList.map((elem) => <li key={elem.taskTitle}>{elem.taskTitle}</li>) }
       </ul>
       <label htmlFor="task-title">
         Task Title
         <input
           id="task-title"
           onChange={handleChange}
-          name="title"
-          value={task.title}
+          name="taskTitle"
+          value={task.taskTitle}
         />
       </label>
       <label htmlFor="task-details">
@@ -49,8 +69,8 @@ function App() {
           id="task-details"
           style={{ resize: 'none' }}
           onChange={handleChange}
-          name="details"
-          value={task.details}
+          name="taskDetail"
+          value={task.taskDetail}
         />
       </label>
       <button type="button" onClick={handleClick}>Add Task</button>
